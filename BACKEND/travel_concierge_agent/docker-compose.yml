@@ -1,0 +1,30 @@
+# Dev database for the Travel Concierge Agent.
+#   docker compose up -d         start Postgres 18, auto-load schema + seed (first boot)
+#   docker compose down          stop (keeps data)
+#   docker compose down -v       stop + wipe (next `up` re-seeds a fresh world)
+#
+# Files in /docker-entrypoint-initdb.d run alphabetically on an EMPTY data dir,
+# so 01-schema.sql then 02-seed.sql.
+
+services:
+  db:
+    image: postgres:18
+    container_name: tca_db
+    environment:
+      POSTGRES_USER: tca
+      POSTGRES_PASSWORD: tca
+      POSTGRES_DB: tca
+    ports:
+      - "5544:5432"     # host 5544 (5432 is taken by a local Postgres)
+    volumes:
+      - tca_pgdata:/var/lib/postgresql      # PG18: mount the parent, not /data
+      - ./app/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./app/db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tca -d tca"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  tca_pgdata:

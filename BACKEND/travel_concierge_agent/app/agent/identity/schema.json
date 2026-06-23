@@ -1,0 +1,92 @@
+{
+  "$defs": {
+    "LoyaltyTier": {
+      "enum": [
+        "none",
+        "silver",
+        "gold",
+        "platinum"
+      ],
+      "title": "LoyaltyTier",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "verified": {
+      "title": "Verified",
+      "type": "boolean"
+    },
+    "customer_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Customer Id"
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Name"
+    },
+    "loyalty_tier": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LoyaltyTier"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "booking_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Booking Ref"
+    },
+    "itinerary": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Itinerary",
+      "type": "array"
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reason"
+    }
+  },
+  "required": [
+    "verified"
+  ],
+  "title": "IdentityResult",
+  "type": "object"
+}

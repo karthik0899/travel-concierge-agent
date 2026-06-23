@@ -1,0 +1,73 @@
+{
+  "$defs": {
+    "CancelCause": {
+      "enum": [
+        "airline_fault",
+        "extraordinary_circumstance"
+      ],
+      "title": "CancelCause",
+      "type": "string"
+    },
+    "DisruptionType": {
+      "enum": [
+        "cancelled_flight",
+        "flight_delay",
+        "missed_connection",
+        "denied_boarding",
+        "lost_baggage",
+        "delayed_baggage",
+        "damaged_baggage"
+      ],
+      "title": "DisruptionType",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "confirmed_type": {
+      "$ref": "#/$defs/DisruptionType"
+    },
+    "severity": {
+      "title": "Severity",
+      "type": "string"
+    },
+    "affected_flights": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Affected Flights",
+      "type": "array"
+    },
+    "cause": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CancelCause"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "needs_rebooking": {
+      "title": "Needs Rebooking",
+      "type": "boolean"
+    },
+    "needs_accommodation": {
+      "title": "Needs Accommodation",
+      "type": "boolean"
+    },
+    "details": {
+      "title": "Details",
+      "type": "string"
+    }
+  },
+  "required": [
+    "confirmed_type",
+    "severity",
+    "needs_rebooking",
+    "needs_accommodation",
+    "details"
+  ],
+  "title": "AssessmentResult",
+  "type": "object"
+}

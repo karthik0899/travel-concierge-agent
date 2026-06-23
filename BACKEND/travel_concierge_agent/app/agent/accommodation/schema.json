@@ -1,0 +1,105 @@
+{
+  "$defs": {
+    "HotelOption": {
+      "properties": {
+        "hotel_id": {
+          "title": "Hotel Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "near_airport": {
+          "title": "Near Airport",
+          "type": "string"
+        },
+        "star_rating": {
+          "title": "Star Rating",
+          "type": "integer"
+        },
+        "price_per_night": {
+          "$ref": "#/$defs/Money"
+        }
+      },
+      "required": [
+        "hotel_id",
+        "name",
+        "near_airport",
+        "star_rating",
+        "price_per_night"
+      ],
+      "title": "HotelOption",
+      "type": "object"
+    },
+    "Money": {
+      "properties": {
+        "amount": {
+          "title": "Amount",
+          "type": "number"
+        },
+        "currency": {
+          "default": "INR",
+          "title": "Currency",
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount"
+      ],
+      "title": "Money",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "options_considered": {
+      "items": {
+        "$ref": "#/$defs/HotelOption"
+      },
+      "title": "Options Considered",
+      "type": "array"
+    },
+    "selected": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/HotelOption"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "booked": {
+      "default": false,
+      "title": "Booked",
+      "type": "boolean"
+    },
+    "confirmation": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Confirmation"
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reason"
+    }
+  },
+  "title": "AccommodationResult",
+  "type": "object"
+}

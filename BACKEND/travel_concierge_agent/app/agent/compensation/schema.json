@@ -1,0 +1,118 @@
+{
+  "$defs": {
+    "CompEvent": {
+      "description": "Cash-compensable events (dispatch key for calculate_compensation).",
+      "enum": [
+        "cancellation",
+        "denied_boarding",
+        "lost_baggage",
+        "delayed_baggage",
+        "damaged_baggage"
+      ],
+      "title": "CompEvent",
+      "type": "string"
+    },
+    "Money": {
+      "properties": {
+        "amount": {
+          "title": "Amount",
+          "type": "number"
+        },
+        "currency": {
+          "default": "INR",
+          "title": "Currency",
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount"
+      ],
+      "title": "Money",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "event_type": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CompEvent"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "eligible": {
+      "default": false,
+      "title": "Eligible",
+      "type": "boolean"
+    },
+    "rule_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Rule Ref"
+    },
+    "rule_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Rule Id"
+    },
+    "baggage_rule_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Baggage Rule Id"
+    },
+    "bag_tag": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Bag Tag"
+    },
+    "amount": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Money"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "reason": {
+      "default": "",
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "title": "CompensationResult",
+  "type": "object"
+}

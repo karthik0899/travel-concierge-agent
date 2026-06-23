@@ -1,0 +1,122 @@
+{
+  "$defs": {
+    "FlightOption": {
+      "properties": {
+        "flight_no": {
+          "title": "Flight No",
+          "type": "string"
+        },
+        "origin": {
+          "title": "Origin",
+          "type": "string"
+        },
+        "destination": {
+          "title": "Destination",
+          "type": "string"
+        },
+        "departure": {
+          "format": "date-time",
+          "title": "Departure",
+          "type": "string"
+        },
+        "arrival": {
+          "format": "date-time",
+          "title": "Arrival",
+          "type": "string"
+        },
+        "seats_available": {
+          "title": "Seats Available",
+          "type": "integer"
+        },
+        "price": {
+          "$ref": "#/$defs/Money"
+        }
+      },
+      "required": [
+        "flight_no",
+        "origin",
+        "destination",
+        "departure",
+        "arrival",
+        "seats_available",
+        "price"
+      ],
+      "title": "FlightOption",
+      "type": "object"
+    },
+    "Money": {
+      "properties": {
+        "amount": {
+          "title": "Amount",
+          "type": "number"
+        },
+        "currency": {
+          "default": "INR",
+          "title": "Currency",
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount"
+      ],
+      "title": "Money",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "options_considered": {
+      "items": {
+        "$ref": "#/$defs/FlightOption"
+      },
+      "title": "Options Considered",
+      "type": "array"
+    },
+    "selected": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FlightOption"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "booked": {
+      "default": false,
+      "title": "Booked",
+      "type": "boolean"
+    },
+    "new_segment_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "New Segment Id"
+    },
+    "overnight_required": {
+      "default": false,
+      "title": "Overnight Required",
+      "type": "boolean"
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reason"
+    }
+  },
+  "title": "RebookingResult",
+  "type": "object"
+}

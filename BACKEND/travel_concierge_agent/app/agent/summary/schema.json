@@ -1,0 +1,34 @@
+{
+  "properties": {
+    "narrative": {
+      "title": "Narrative",
+      "type": "string"
+    },
+    "actions_taken": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Actions Taken",
+      "type": "array"
+    },
+    "confirmations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Confirmations",
+      "type": "array"
+    },
+    "next_steps": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Next Steps",
+      "type": "array"
+    }
+  },
+  "required": [
+    "narrative"
+  ],
+  "title": "SummaryResult",
+  "type": "object"
+}
