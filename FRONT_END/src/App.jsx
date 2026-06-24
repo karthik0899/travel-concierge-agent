@@ -102,7 +102,7 @@ export default function App() {
                       "—"}
                   </span>
                   <span className="rounded bg-elevated px-1.5 py-0.5 font-mono">
-                    {caseData.case_id?.slice(0, 8)}
+                    {String(caseData.case_id ?? "").slice(0, 8)}
                   </span>
                 </div>
 
