@@ -25,7 +25,7 @@ export function Composer({ onSend, disabled, placeholder }) {
         rows={2}
         disabled={disabled}
         placeholder={placeholder ?? "Describe the disruption… include the PNR, e.g. “…booking PNR001…”"}
-        className="min-h-[52px] flex-1 resize-none rounded-xl border border-ink-700 bg-ink-850 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 focus:border-sky-500/60 focus:outline-none disabled:opacity-50"
+        className="min-h-[52px] flex-1 resize-none rounded-xl border border-strong bg-elevated px-4 py-3 text-sm text-fg placeholder:text-dim focus:border-sky-500/60 focus:outline-none disabled:opacity-50"
       />
       <button
         onClick={send}

@@ -1,9 +1,17 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Travel Concierge Agent</title>
+    <script>
+      // Apply the saved/preferred theme before paint to avoid a flash.
+      (function () {
+        var saved = localStorage.getItem("theme");
+        var dark = saved ? saved === "dark" : true; // default: dark
+        document.documentElement.classList.toggle("dark", dark);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

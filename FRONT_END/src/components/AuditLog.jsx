@@ -15,7 +15,7 @@ function summarize(result) {
 export function AuditLog({ entries }) {
   if (!entries?.length) {
     return (
-      <p className="px-1 py-4 text-center text-xs text-slate-600">
+      <p className="px-1 py-4 text-center text-xs text-dim">
         No actions yet — the agent's tool calls will appear here.
       </p>
     );
@@ -25,15 +25,15 @@ export function AuditLog({ entries }) {
       {entries.map((e, i) => (
         <li
           key={i}
-          className="rounded-lg border border-ink-800 bg-ink-900/60 px-3 py-2 text-xs"
+          className="rounded-lg border border-line bg-card px-3 py-2 text-xs"
         >
           <div className="flex items-center justify-between gap-2">
-            <span className="font-mono text-sky-300">{e.tool}</span>
-            <span className="text-[10px] uppercase tracking-wide text-slate-500">
+            <span className="font-mono text-accent">{e.tool}</span>
+            <span className="text-[10px] uppercase tracking-wide text-dim">
               {e.step}
             </span>
           </div>
-          <p className="mt-0.5 truncate text-slate-400" title={summarize(e.result)}>
+          <p className="mt-0.5 truncate text-muted" title={summarize(e.result)}>
             {summarize(e.result) || "—"}
           </p>
         </li>

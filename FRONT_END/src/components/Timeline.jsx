@@ -21,8 +21,8 @@ export function Timeline({ caseData }) {
   const dot = {
     done: "bg-emerald-500 border-emerald-400 text-ink-950",
     active: "bg-sky-500 border-sky-400 text-white animate-pulse",
-    skipped: "bg-ink-800 border-ink-700 text-slate-600",
-    pending: "bg-ink-850 border-ink-700 text-slate-500",
+    skipped: "bg-elevated border-strong text-dim",
+    pending: "bg-elevated border-strong text-dim",
   };
 
   return (
@@ -40,7 +40,7 @@ export function Timeline({ caseData }) {
               </div>
               <span
                 className={`whitespace-nowrap text-[10px] ${
-                  st === "active" ? "text-sky-300" : "text-slate-500"
+                  st === "active" ? "text-accent" : "text-dim"
                 }`}
               >
                 {step.label}
@@ -51,7 +51,7 @@ export function Timeline({ caseData }) {
                 className={`mx-1 mb-4 h-px w-6 ${
                   stateOf(PIPELINE[idx + 1], idx + 1) !== "pending"
                     ? "bg-emerald-500/40"
-                    : "bg-ink-700"
+                    : "bg-strong"
                 }`}
               />
             )}

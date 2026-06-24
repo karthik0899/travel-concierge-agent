@@ -3,7 +3,7 @@ import { STATUS_META } from "../steps.js";
 export function StatusBadge({ status }) {
   const meta = STATUS_META[status] ?? {
     label: status ?? "—",
-    cls: "bg-ink-700 text-slate-300 border-ink-600",
+    cls: "bg-strong text-fg border-strong",
   };
   return (
     <span

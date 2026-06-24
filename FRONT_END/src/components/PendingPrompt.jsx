@@ -14,7 +14,7 @@ export function PendingPrompt({ pending, onReply, disabled }) {
 
   return (
     <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
-      <p className="mb-3 text-sm font-medium text-amber-200">
+      <p className="mb-3 text-sm font-medium text-amber-800 dark:text-amber-200">
         🤝 {pending?.question ?? "The agent needs your input."}
       </p>
 
@@ -25,7 +25,7 @@ export function PendingPrompt({ pending, onReply, disabled }) {
               key={i}
               onClick={() => reply(opt)}
               disabled={disabled}
-              className="rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 text-xs font-medium text-amber-100 transition hover:bg-amber-500/20 disabled:opacity-50"
+              className="rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 text-xs font-medium text-amber-800 dark:text-amber-100 transition hover:bg-amber-500/20 disabled:opacity-50"
             >
               {opt}
             </button>
@@ -40,7 +40,7 @@ export function PendingPrompt({ pending, onReply, disabled }) {
           onKeyDown={(e) => e.key === "Enter" && reply()}
           disabled={disabled}
           placeholder="Type your answer…"
-          className="flex-1 rounded-lg border border-ink-700 bg-ink-900 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:border-amber-500/60 focus:outline-none disabled:opacity-50"
+          className="flex-1 rounded-lg border border-strong bg-card px-3 py-2 text-sm text-fg placeholder:text-dim focus:border-amber-500/60 focus:outline-none disabled:opacity-50"
         />
         <button
           onClick={() => reply()}

@@ -2,8 +2,8 @@ import { fmtMoney } from "../steps.js";
 
 function Card({ title, children }) {
   return (
-    <div className="rounded-xl border border-ink-800 bg-ink-900/60 p-3">
-      <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+    <div className="rounded-xl border border-line bg-card p-3">
+      <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
         {title}
       </h4>
       {children}
@@ -13,8 +13,8 @@ function Card({ title, children }) {
 
 const Row = ({ k, v }) => (
   <div className="flex justify-between gap-3 py-0.5 text-xs">
-    <span className="text-slate-500">{k}</span>
-    <span className="text-right text-slate-200">{v}</span>
+    <span className="text-dim">{k}</span>
+    <span className="text-right text-fg">{v}</span>
   </div>
 );
 
@@ -27,9 +27,9 @@ export function Results({ caseData }) {
     const sum = s.summary;
     cards.push(
       <Card key="summary" title="Summary">
-        <p className="text-sm leading-relaxed text-slate-200">{sum.narrative}</p>
+        <p className="text-sm leading-relaxed text-fg">{sum.narrative}</p>
         {sum.actions_taken?.length > 0 && (
-          <ul className="mt-2 list-inside list-disc space-y-0.5 text-xs text-slate-400">
+          <ul className="mt-2 list-inside list-disc space-y-0.5 text-xs text-muted">
             {sum.actions_taken.map((a, i) => (
               <li key={i}>{a}</li>
             ))}
@@ -37,10 +37,10 @@ export function Results({ caseData }) {
         )}
         {sum.next_steps?.length > 0 && (
           <>
-            <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-dim">
               Next steps
             </p>
-            <ul className="mt-1 list-inside list-disc space-y-0.5 text-xs text-slate-400">
+            <ul className="mt-1 list-inside list-disc space-y-0.5 text-xs text-muted">
               {sum.next_steps.map((a, i) => (
                 <li key={i}>{a}</li>
               ))}
@@ -131,7 +131,7 @@ export function Results({ caseData }) {
 
   if (!cards.length) {
     return (
-      <p className="px-1 py-4 text-center text-xs text-slate-600">
+      <p className="px-1 py-4 text-center text-xs text-dim">
         Results will appear here as each agent completes.
       </p>
     );

@@ -7,13 +7,13 @@ export function SidePanels({ onUseBooking }) {
   const [tab, setTab] = useState("Bookings");
   return (
     <div className="flex h-full flex-col">
-      <div className="flex gap-1 border-b border-ink-800 px-2 pb-2">
+      <div className="flex gap-1 border-b border-line px-2 pb-2">
         {TABS.map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
-              tab === t ? "bg-ink-800 text-sky-300" : "text-slate-500 hover:text-slate-300"
+              tab === t ? "bg-elevated text-accent" : "text-dim hover:text-fg"
             }`}
           >
             {t}
@@ -48,9 +48,9 @@ function useFetch(fn, deps = []) {
 
 const Loading = ({ err }) =>
   err ? (
-    <p className="p-2 text-xs text-rose-400">{err}</p>
+    <p className="p-2 text-xs text-rose-600 dark:text-rose-400">{err}</p>
   ) : (
-    <p className="p-2 text-xs text-slate-600">Loading…</p>
+    <p className="p-2 text-xs text-dim">Loading…</p>
   );
 
 function Bookings({ onUseBooking }) {
@@ -62,14 +62,14 @@ function Bookings({ onUseBooking }) {
         <button
           key={b.booking_ref}
           onClick={() => onUseBooking?.(b)}
-          className="block w-full rounded-lg border border-ink-800 bg-ink-900/60 p-2 text-left transition hover:border-sky-500/40"
+          className="block w-full rounded-lg border border-line bg-card p-2 text-left transition hover:border-sky-500/40"
         >
           <div className="flex items-center justify-between">
-            <span className="font-mono text-xs text-sky-300">{b.booking_ref}</span>
-            <span className="text-[10px] uppercase text-slate-500">{b.status}</span>
+            <span className="font-mono text-xs text-accent">{b.booking_ref}</span>
+            <span className="text-[10px] uppercase text-dim">{b.status}</span>
           </div>
-          <p className="text-xs text-slate-300">{b.name}</p>
-          {b.route && <p className="text-[11px] text-slate-500">{b.route}</p>}
+          <p className="text-xs text-fg">{b.name}</p>
+          {b.route && <p className="text-[11px] text-dim">{b.route}</p>}
         </button>
       ))}
     </div>
@@ -82,23 +82,23 @@ function Flights() {
   return (
     <div className="space-y-1.5">
       {data.flights.map((f, i) => (
-        <div key={i} className="rounded-lg border border-ink-800 bg-ink-900/60 p-2 text-xs">
+        <div key={i} className="rounded-lg border border-line bg-card p-2 text-xs">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-slate-200">{f.flight_no}</span>
+            <span className="font-mono text-fg">{f.flight_no}</span>
             <span
               className={
                 f.status === "cancelled"
-                  ? "text-rose-400"
+                  ? "text-rose-600 dark:text-rose-400"
                   : f.status === "delayed"
-                    ? "text-amber-400"
-                    : "text-emerald-400"
+                    ? "text-amber-600 dark:text-amber-400"
+                    : "text-emerald-600 dark:text-emerald-400"
               }
             >
               {f.status}
               {f.delay_minutes ? ` +${f.delay_minutes}m` : ""}
             </span>
           </div>
-          <p className="text-slate-400">
+          <p className="text-muted">
             {f.origin}→{f.destination} · {f.airline}
           </p>
         </div>
@@ -112,13 +112,13 @@ function Rules() {
   if (!data) return <Loading err={err} />;
   return (
     <div className="space-y-2">
-      <h5 className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+      <h5 className="text-[11px] font-semibold uppercase tracking-wide text-dim">
         Compensation (DGCA)
       </h5>
       {data.compensation.map((r, i) => (
-        <div key={i} className="rounded-lg border border-ink-800 bg-ink-900/60 p-2 text-xs">
-          <p className="text-slate-300">{r.event_type}</p>
-          <p className="text-slate-500">
+        <div key={i} className="rounded-lg border border-line bg-card p-2 text-xs">
+          <p className="text-fg">{r.event_type}</p>
+          <p className="text-dim">
             {r.car_ref}
             {r.cap_amount ? ` · cap ${r.currency} ${r.cap_amount}` : ""}
           </p>
@@ -132,16 +132,16 @@ function Claims() {
   const [data, err] = useFetch(() => listClaims(30));
   if (!data) return <Loading err={err} />;
   if (!data.claims.length)
-    return <p className="p-2 text-xs text-slate-600">No claims yet.</p>;
+    return <p className="p-2 text-xs text-dim">No claims yet.</p>;
   return (
     <div className="space-y-1.5">
       {data.claims.map((c) => (
-        <div key={c.claim_ref} className="rounded-lg border border-ink-800 bg-ink-900/60 p-2 text-xs">
+        <div key={c.claim_ref} className="rounded-lg border border-line bg-card p-2 text-xs">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-sky-300">{c.claim_ref}</span>
-            <span className="text-[10px] uppercase text-slate-500">{c.status}</span>
+            <span className="font-mono text-accent">{c.claim_ref}</span>
+            <span className="text-[10px] uppercase text-dim">{c.status}</span>
           </div>
-          <p className="text-slate-400">
+          <p className="text-muted">
             {c.booking_ref} · {c.event_type} · {c.currency} {c.amount}
           </p>
         </div>

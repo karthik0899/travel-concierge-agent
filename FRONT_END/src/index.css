@@ -1,12 +1,52 @@
 @import "tailwindcss";
 
-@theme {
+/* class-based dark mode: toggling `.dark` on <html> flips the theme */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Semantic colors resolve at use-site (@theme inline), so they swap live when
+   the underlying vars below change between light (:root) and dark (.dark). */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-panel: var(--panel);
+  --color-card: var(--card);
+  --color-elevated: var(--elevated);
+  --color-strong: var(--strong);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-dim: var(--dim);
+  --color-accent: var(--accent);
+
+  /* static: dark ink, used as text on bright accent fills (both themes) */
   --color-ink-950: #0a0e14;
-  --color-ink-900: #0f141d;
-  --color-ink-850: #141b26;
-  --color-ink-800: #1a2230;
-  --color-ink-700: #263042;
-  --color-ink-600: #36425a;
+}
+
+/* Light theme (default) */
+:root {
+  --canvas: #f4f6fb;
+  --panel: #ffffff;
+  --card: #f8fafc;
+  --elevated: #eef2f7;
+  --strong: #cbd5e1;
+  --line: #e3e8ef;
+  --fg: #0f172a;
+  --muted: #475569;
+  --dim: #7886a0;
+  --accent: #0369a1; /* sky-700 */
+}
+
+/* Dark theme */
+.dark {
+  --canvas: #0a0e14;
+  --panel: #0f141d;
+  --card: #131a25;
+  --elevated: #1a2230;
+  --strong: #36425a;
+  --line: #232d3e;
+  --fg: #e6edf6;
+  --muted: #94a3b8;
+  --dim: #5b6677;
+  --accent: #7dd3fc; /* sky-300 */
 }
 
 html,
@@ -17,21 +57,21 @@ body,
 
 body {
   margin: 0;
-  background: var(--color-ink-950);
-  color: #e6edf6;
+  background: var(--canvas);
+  color: var(--fg);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 /* thin custom scrollbars */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-ink-700) transparent;
+  scrollbar-color: var(--strong) transparent;
 }
 *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 *::-webkit-scrollbar-thumb {
-  background: var(--color-ink-700);
+  background: var(--strong);
   border-radius: 8px;
 }

@@ -10,6 +10,7 @@ import { Timeline } from "./components/Timeline.jsx";
 import { AuditLog } from "./components/AuditLog.jsx";
 import { Results } from "./components/Results.jsx";
 import { SidePanels } from "./components/SidePanels.jsx";
+import { ThemeToggle } from "./components/ThemeToggle.jsx";
 
 export default function App() {
   const { caseData, error, busy, start, reply, reset } = useCase();
@@ -41,10 +42,10 @@ export default function App() {
         <div className="flex items-center gap-3">
           <span className="text-xl">🧳</span>
           <div>
-            <h1 className="text-sm font-semibold text-slate-100">
+            <h1 className="text-sm font-semibold text-fg">
               Travel Concierge Agent
             </h1>
-            <p className="text-[11px] text-slate-500">
+            <p className="text-[11px] text-dim">
               Multi-agent flight disruption recovery
             </p>
           </div>
@@ -58,11 +59,12 @@ export default function App() {
             onChange={setProvider}
             disabled={running}
           />
+          <ThemeToggle />
         </div>
       </header>
 
       {error && (
-        <div className="mb-3 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-300">
+        <div className="mb-3 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-700 dark:text-rose-300">
           {error}
         </div>
       )}
@@ -70,8 +72,8 @@ export default function App() {
       {/* 3-column workspace */}
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-3 lg:grid-cols-[1.1fr_1fr_300px]">
         {/* Left — conversation */}
-        <section className="flex min-h-0 flex-col rounded-2xl border border-ink-800 bg-ink-900/40 p-4">
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <section className="flex min-h-0 flex-col rounded-2xl border border-line bg-panel p-4">
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted">
             Conversation
           </h2>
 
@@ -87,25 +89,25 @@ export default function App() {
             {hasCase && (
               <>
                 {/* the customer's opening message */}
-                <div className="ml-6 rounded-2xl rounded-tr-sm border border-sky-500/20 bg-sky-500/10 px-3 py-2 text-sm text-slate-100">
+                <div className="ml-6 rounded-2xl rounded-tr-sm border border-sky-500/20 bg-sky-500/10 px-3 py-2 text-sm text-fg">
                   {caseData.report?.raw_text ?? caseData.message}
                 </div>
-                <div className="flex flex-wrap gap-2 text-[11px] text-slate-500">
-                  <span className="rounded bg-ink-800 px-1.5 py-0.5">
+                <div className="flex flex-wrap gap-2 text-[11px] text-dim">
+                  <span className="rounded bg-elevated px-1.5 py-0.5">
                     {caseData.booking_ref ?? caseData.report?.booking_ref ?? "—"}
                   </span>
-                  <span className="rounded bg-ink-800 px-1.5 py-0.5">
+                  <span className="rounded bg-elevated px-1.5 py-0.5">
                     {caseData.disruption_type ??
                       caseData.report?.disruption_type ??
                       "—"}
                   </span>
-                  <span className="rounded bg-ink-800 px-1.5 py-0.5 font-mono">
+                  <span className="rounded bg-elevated px-1.5 py-0.5 font-mono">
                     {caseData.case_id?.slice(0, 8)}
                   </span>
                 </div>
 
                 {running && (
-                  <p className="text-xs text-sky-300/80">
+                  <p className="text-xs text-accent/80">
                     <span className="mr-1 animate-pulse">●</span>
                     Working{caseData.current_step ? ` · ${caseData.current_step}` : ""}…
                   </p>
@@ -120,7 +122,7 @@ export default function App() {
                 )}
 
                 {done && (
-                  <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-3 py-2 text-sm text-emerald-200">
+                  <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-3 py-2 text-sm text-emerald-700 dark:text-emerald-200">
                     {caseData.slices?.summary?.narrative ??
                       `Case ${caseData.status}.`}
                   </div>
@@ -130,11 +132,11 @@ export default function App() {
           </div>
 
           {/* Composer / new-case */}
-          <div className="mt-3 border-t border-ink-800 pt-3">
+          <div className="mt-3 border-t border-line pt-3">
             {hasCase && !awaiting ? (
               <button
                 onClick={reset}
-                className="w-full rounded-xl border border-ink-700 bg-ink-850 py-2.5 text-sm font-medium text-slate-300 transition hover:border-sky-500/40 hover:text-sky-300"
+                className="w-full rounded-xl border border-strong bg-elevated py-2.5 text-sm font-medium text-fg transition hover:border-sky-500/40 hover:text-accent"
               >
                 + New case
               </button>
@@ -146,28 +148,28 @@ export default function App() {
 
         {/* Middle — pipeline + results */}
         <section className="flex min-h-0 flex-col gap-3">
-          <div className="rounded-2xl border border-ink-800 bg-ink-900/40 p-4">
-            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
+          <div className="rounded-2xl border border-line bg-panel p-4">
+            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted">
               Pipeline
             </h2>
             {hasCase ? (
               <Timeline caseData={caseData} />
             ) : (
-              <p className="py-2 text-center text-xs text-slate-600">
+              <p className="py-2 text-center text-xs text-dim">
                 Start a case to watch the agents run.
               </p>
             )}
           </div>
 
           <div className="grid min-h-0 flex-1 grid-rows-2 gap-3">
-            <div className="min-h-0 overflow-y-auto rounded-2xl border border-ink-800 bg-ink-900/40 p-4">
-              <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            <div className="min-h-0 overflow-y-auto rounded-2xl border border-line bg-panel p-4">
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted">
                 Results
               </h2>
               <Results caseData={caseData} />
             </div>
-            <div className="min-h-0 overflow-y-auto rounded-2xl border border-ink-800 bg-ink-900/40 p-4">
-              <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            <div className="min-h-0 overflow-y-auto rounded-2xl border border-line bg-panel p-4">
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted">
                 Activity
               </h2>
               <AuditLog entries={caseData?.audit_log} />
@@ -176,9 +178,9 @@ export default function App() {
         </section>
 
         {/* Right — reference data */}
-        <aside className="hidden min-h-0 rounded-2xl border border-ink-800 bg-ink-900/40 lg:flex lg:flex-col">
+        <aside className="hidden min-h-0 rounded-2xl border border-line bg-panel lg:flex lg:flex-col">
           <div className="px-3 pt-3">
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
               Reference
             </h2>
           </div>
